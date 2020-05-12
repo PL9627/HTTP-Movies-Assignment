@@ -24,6 +24,20 @@ const UpdateForm = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`)
+      .then((res) => {
+        console.log(res);
+
+        props.updateItems(res.data);
+        props.history.push(`movies/${id}`);
+      })
+      .catch((err) => console.log("axios put err", err));
+  };
 };
 
 export default UpdateForm;
