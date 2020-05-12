@@ -8,6 +8,15 @@ const initMovie = {
   stars: [],
 };
 
-const UpdateForm = (props) => {};
+const UpdateForm = (props) => {
+  const [movie, setMovie] = useState(initMovie);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/movies/${id}`)
+      .then((res) => setMovie(res.data))
+      .catch((err) => console.log("UpdateForm useEffect err", err));
+  });
+};
 
 export default UpdateForm;
