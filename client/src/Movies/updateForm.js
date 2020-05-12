@@ -17,6 +17,13 @@ const UpdateForm = (props) => {
       .then((res) => setMovie(res.data))
       .catch((err) => console.log("UpdateForm useEffect err", err));
   });
+
+  const handleChanges = (e) => {
+    setMovie({
+      ...movie,
+      [e.target.name]: e.target.value,
+    });
+  };
 };
 
 export default UpdateForm;
