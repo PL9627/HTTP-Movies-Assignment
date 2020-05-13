@@ -20,7 +20,7 @@ const UpdateForm = (props) => {
         setMovie(res.data);
       })
       .catch((err) => console.log("UpdateForm useEffect err", err));
-  });
+  }, []);
 
   const handleChanges = (e) => {
     e.persist();
@@ -76,6 +76,7 @@ const UpdateForm = (props) => {
         onChange={handleChanges}
         value={item.stars}
         placeholder="Type stars here..."/>
+        <button type="submit">Update Movie</button>
       </form>
     </div>
   );

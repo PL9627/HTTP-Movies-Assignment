@@ -26,6 +26,10 @@ function Movie({ addToSavedList }) {
     return <div>Loading movie information...</div>;
   }
 
+  const deleteMovie = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
