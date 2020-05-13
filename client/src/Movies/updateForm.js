@@ -14,11 +14,17 @@ const UpdateForm = (props) => {
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
-      .then((res) => setMovie(res.data))
+      .then((res) => {
+        console.log(res);
+
+        setMovie(res.data);
+      })
       .catch((err) => console.log("UpdateForm useEffect err", err));
   });
 
   const handleChanges = (e) => {
+    e.persist();
+
     setMovie({
       ...movie,
       [e.target.name]: e.target.value,
@@ -40,8 +46,39 @@ const UpdateForm = (props) => {
   };
 
   return (
-      
-  )
+    <div>
+      <h1>Update Movies</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          onChange={handleChanges}
+          value={item.title}
+          placeholder="Type title here..."
+        />
+        <input
+          type="text"
+          name="director"
+          onChange={handleChanges}
+          value={item.director}
+          placeholder="Type director here..."
+        />
+        <input
+          type="text"
+          name="metascore"
+          onChange={handleChanges}
+          value={item.metascore}
+          placeholder="Type metascore here..."
+        />
+        <input 
+        type="text"
+        name="stars"
+        onChange={handleChanges}
+        value={item.stars}
+        placeholder="Type stars here..."/>
+      </form>
+    </div>
+  );
 };
 
 export default UpdateForm;
