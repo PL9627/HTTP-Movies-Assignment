@@ -3,9 +3,9 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
-function Movie({ addToSavedList }) {
+function Movie(props) {
   const [movie, setMovie] = useState(null);
-  const params = useParams();
+  const { id } = useParams();
   const { push } = useHistory();
 
   const fetchMovie = (id) => {
@@ -16,12 +16,12 @@ function Movie({ addToSavedList }) {
   };
 
   const saveMovie = () => {
-    addToSavedList(movie);
+    props.addToSavedList(movie);
   };
 
   useEffect(() => {
-    fetchMovie(params.id);
-  }, [params.id]);
+    fetchMovie(id);
+  }, [id]);
 
   if (!movie) {
     return <div>Loading movie information...</div>;
@@ -31,11 +31,12 @@ function Movie({ addToSavedList }) {
     e.preventDefault();
 
     axios
-      .delete(`http:localhost:5000/api/movies/${params.id}`)
+      .delete(`http://localhost:5000/api/movies/${id}`)
       .then((res) => {
         console.log(res);
 
-        push(`/movies/${params.id}`)
+        props.setMovieList(res.data);
+        push(`/movies`);
       })
       .catch((err) => console.log("axios delete err", err));
   };
@@ -49,7 +50,7 @@ function Movie({ addToSavedList }) {
       </div>
       <div
         className="edit-button"
-        onClick={() => push(`/update-movie/${params.id}`)}
+        onClick={() => push(`/update-movie/${id}`)}
       >
         Edit
       </div>
